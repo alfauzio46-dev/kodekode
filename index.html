@@ -2,35 +2,88 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Login JSON</title>
     <style>
-        body { font-family: Arial; background: #f0f0f0; }
+        body { 
+            font-family: Arial; 
+            background: #f5f5f5; 
+        }
         .box {
-            width: 300px; background: white; padding: 20px;
-            margin: 100px auto; border-radius: 8px;
+            width: 300px;
+            background: white;
+            padding: 20px;
+            margin: 100px auto;
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         input {
-            width: 100%; padding: 10px; margin: 5px 0;
-            border: 1px solid #ccc; border-radius: 5px;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
         }
         button {
-            width: 100%; padding: 10px;
-            background: #007bff; color: white; border: none;
-            border-radius: 5px; cursor: pointer;
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        #msg {
+            margin-top: 10px;
+            color: red;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
 <div class="box">
-    <h3>Login</h3>
-    <form method="POST" action="login.php">
-        <input type="text" name="username" placeholder="Username" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
-        <button type="submit">Masuk</button>
-    </form>
+    <h3>Halaman Login</h3>
+
+    <input type="text" id="username" placeholder="Username">
+
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <div id="msg"></div>
 </div>
+
+<script>
+function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    fetch("data/users.json")
+        .then(response => response.json())
+        .then(data => {
+            const found = data.find(u => u.username === user && u.password === pass);
+
+            if (found) {
+                document.getElementById("msg").style.color = "green";
+                document.getElementById("msg").innerText = "Login berhasil!";
+
+                // Simpan status login (opsional)
+                localStorage.setItem("loginUser", user);
+
+                // Redirect (opsional)
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1000);
+
+            } else {
+                document.getElementById("msg").style.color = "red";
+                document.getElementById("msg").innerText = "Username atau password salah!";
+            }
+        });
+}
+</script>
 
 </body>
 </html>
+
+
