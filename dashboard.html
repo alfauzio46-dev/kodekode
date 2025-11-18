@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Selamat datang di Dashboard!</h2>
+
+    <script>
+        const user = localStorage.getItem("loginUser");
+
+        if (!user) {
+            alert("Anda belum login!");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
