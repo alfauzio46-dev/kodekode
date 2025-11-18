@@ -5,15 +5,23 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <h2>Selamat datang di Dashboard!</h2>
+
+    <h2 id="welcome"></h2>
 
     <script>
         const user = localStorage.getItem("loginUser");
 
+        // Jika belum login → paksa kembali ke halaman login
         if (!user) {
             alert("Anda belum login!");
             window.location.href = "index.html";
         }
+
+        // Tampilkan nama user yang login
+        document.getElementById("welcome").innerText = "Selamat datang, " + user + "!";
     </script>
+
 </body>
 </html>
+
+
